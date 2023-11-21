@@ -1,5 +1,4 @@
 ﻿using Inlämningsuppgift_DbTeknik.Entities;
-using Inlämningsuppgift_DbTeknik.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

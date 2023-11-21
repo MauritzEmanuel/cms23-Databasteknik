@@ -19,15 +19,20 @@ internal class Program
         //Repositories
         services.AddScoped<AddressRepo>();
         services.AddScoped<CustomerRepo>();
+        services.AddScoped<ProductRepo>();
+        services.AddScoped<PricingUnitRepo>();
+        services.AddScoped<ProductCategoryRepo>();
 
 
         //Services
         services.AddScoped<CustomerService>();
+        services.AddScoped<ProductService>();
 
 
         //Menus
         services.AddScoped<CustomerMenu>();
         services.AddScoped<MainMenu>();
+        services.AddScoped<ProductMenu>();
 
 
 

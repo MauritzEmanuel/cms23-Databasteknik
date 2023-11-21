@@ -1,5 +1,6 @@
 ﻿using Inlämningsuppgift_DbTeknik.Contexts;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 using System.Linq.Expressions;
 
 namespace Inlämningsuppgift_DbTeknik.Repositories;
@@ -35,4 +36,21 @@ internal abstract class Repo<TEntity> where TEntity : class
     {
         return await _context.Set<TEntity>().ToListAsync();
     }
+
+    public virtual async Task<TEntity> UpdateAsync(TEntity entity)
+    {
+        _context.Set<TEntity>().Update(entity);
+        await _context.SaveChangesAsync();
+        return entity ?? null!;
+
+    }
+
+    public virtual async Task<bool> RemoveAsync(TEntity entity)
+    {
+
+        _context.Set<TEntity>().Remove(entity);
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
 }

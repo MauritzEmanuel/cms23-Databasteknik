@@ -76,6 +76,74 @@ namespace Inlämningsuppgift_DbTeknik.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("Inlämningsuppgift_DbTeknik.Entities.PricingUnitEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Unit")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PricingUnits");
+                });
+
+            modelBuilder.Entity("Inlämningsuppgift_DbTeknik.Entities.ProductCategoryEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductCategories");
+                });
+
+            modelBuilder.Entity("Inlämningsuppgift_DbTeknik.Entities.ProductEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("PricingUnitId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProductDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("ProductPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PricingUnitId");
+
+                    b.HasIndex("ProductCategoryId");
+
+                    b.ToTable("Products");
+                });
+
             modelBuilder.Entity("Inlämningsuppgift_DbTeknik.Entities.CustomerEntity", b =>
                 {
                     b.HasOne("Inlämningsuppgift_DbTeknik.Entities.AddressEntity", "Address")
@@ -85,6 +153,25 @@ namespace Inlämningsuppgift_DbTeknik.Migrations
                         .IsRequired();
 
                     b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("Inlämningsuppgift_DbTeknik.Entities.ProductEntity", b =>
+                {
+                    b.HasOne("Inlämningsuppgift_DbTeknik.Entities.PricingUnitEntity", "PricingUnit")
+                        .WithMany()
+                        .HasForeignKey("PricingUnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Inlämningsuppgift_DbTeknik.Entities.ProductCategoryEntity", "ProductCategory")
+                        .WithMany()
+                        .HasForeignKey("ProductCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PricingUnit");
+
+                    b.Navigation("ProductCategory");
                 });
 #pragma warning restore 612, 618
         }

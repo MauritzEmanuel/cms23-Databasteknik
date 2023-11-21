@@ -24,7 +24,7 @@ namespace Inlämningsuppgift_DbTeknik.Menus
             Console.WriteLine("-------------");
 
             Console.WriteLine("1. Add product");
-            Console.WriteLine("1. List all products");
+            Console.WriteLine("2. List all products");
 
             var option = Console.ReadLine();
 
